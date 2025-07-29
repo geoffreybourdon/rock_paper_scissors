@@ -3,44 +3,44 @@ import json
 
 
 
-class GameStatistics:
-    def __init__(self):
-        self.name = None
-        self.games = []
 
-    def load_data(self):
-        try:
-            with open("rps_data.json") as f:
-                self.data = json.load(f)
-        except FileNotFoundError:
-            data = {}
-
-    def set_name():
-        """Sets the user name for game statistics"""
-
+data = {
+    "Geoff": "games",
+    "Bobby": "more games"
+}
 
 def welcome_message():
     print("Welcome to Rock, Paper, Scissors!")
 
 def check_for_existing_user():
     """A function to demermine whether a user has an existing username"""
-    user_input = input("Do you have an existing user profile (y/n): ").strip().lower()
-    validate_y_n(user_input)
-
-def validate_y_n(some_string):
-    """A function to make sure y or n was entered"""
-    return
-
-def get_y_n_input(message):
     while True:
-        user_input = (f"{message} (y/n): ").strip().lower()
-        if user_input == "y":
-            return True
-        elif user_input == "n":
-            return False
-        else:
-            print("Invalid entry.")
-            continue
+        user_input = input("Do you have an existing user profile (y/n): ").strip().lower()
+        if user_input in ("y", "n"):
+            return user_input == "y"
+        print("You must enter yes or no")
 
-check_for_existing_user()
-print("done")
+def set_username(existing_status):
+    while True:
+        user_name = input("Enter your username: ").strip().title()
+        if existing_status:
+            if user_name in data.keys():
+                print(f"Welcom back {user_name}")
+                return user_name
+            else:
+                print("Your username was not found." 
+                      "Would you like to try again or create a new account (retry/new): ")
+                choice = input().strip().lower()
+                if choice == "new":
+                    print(f"Your username is {user_name}")
+                    return user_name
+        else:
+            if user_name in data.keys():
+                print("Your username is already in use. Please try a new name")
+                continue
+            print(f"Your username is {user_name}")
+            return user_name
+
+print(set_username(check_for_existing_user()))
+
+
