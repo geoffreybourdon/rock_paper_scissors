@@ -1,11 +1,6 @@
 import random
 import json
-
-
-data = {
-    "Geoff": "games",
-    "Bobby": "more games"
-}
+from datetime import datetime
 
 def import_data() -> dict:
     try:
@@ -26,7 +21,7 @@ def check_for_existing_user() -> bool:
             return user_input == "y"
         print("You must enter yes or no")
 
-def set_username(existing_status: bool) -> str:
+def set_username(existing_status: bool, data: dict) -> str:
     while True:
         user_name = input("Enter your username: ").strip().title()
         if existing_status:
@@ -47,15 +42,15 @@ def set_username(existing_status: bool) -> str:
             print(f"Your username is {user_name}")
             return user_name
         
-def initialize_game_list(user_name: str) -> list:
+def initialize_game_list(data: dict, user_name: str) -> list:
     games = data.get(user_name, [])
-
 
 def computer_select() -> str:
     print("Computer making selection...")
     return random.choice(("rock", "paper", "scissors"))
 
 def player_select() -> str:
+    """Returns a string for the player selection input is mapped to a format that matches computer input"""
     return_values = {
         "r": "rock",
         "p": "paper",
@@ -67,6 +62,33 @@ def player_select() -> str:
         if player_selection in ("r", "p", "s"):
             return return_values[player_selection]
         print("You must enter r, p, or s to select rock, paper, or scissors")
+
+def create_timestamp() -> str:
+    """Returns a string version of an isoformat datetime with millisecond precision"""
+    timestamp = datetime.now().isoformat(timespec="milliseconds")
+    return timestamp
+
+def create_game_dictionary(timestamp: str, player_selection: str, computer_selection: str) -> dict:
+    """Creates a dictionary with the three crucial pieces of data for the current game"""
+    return {
+        "timestamp": timestamp,
+        "player selection": player_selection,
+        "computer selection": computer_selection
+    }
+
+def append_game_dictioary(game_dictionary: dict, game_list: list) -> None:
+    """Adds the current game data to the list of games for a given user"""
+    game_list.append(game_dictionary)
+    
+def evaluate_winner(player_selection: str, computer_selection: str) -> str:
+    """Returns the winner given a player selection and a computer selection"""
+    if player_selection == computer_selection:
+        return "tie"
+    elif ((player_selection == "rock" and computer_selection == "scissors") or
+            (player_selection == "paper" and computer_selection == "rock") or
+            (player_selection == "scissors" and computer_selection == "paper")):
+        return "player"
+    return "computer"
 
 
 
