@@ -42,8 +42,28 @@ def set_username(existing_status: bool, data: dict) -> str:
             print(f"Your username is {user_name}")
             return user_name
         
-def initialize_game_list(data: dict, user_name: str) -> list:
-    games = data.get(user_name, [])
+def initialize_game_list(data: dict, username: str) -> list:
+    games = data.get(username, [])
+    return games
+
+def main() -> None:
+    """Controls the main logic of the game"""
+    data = import_data()
+    welcome_message()
+    existing_status = check_for_existing_user()
+    username = set_username(existing_status, data)
+    games = initialize_game_list(data, username)
+
+def main_menu() -> str:
+    """Takes player input to see if they want to play a round, see the stats or quit the game"""
+    while True:
+        player_choice = input("Do you want to play, see game stats, or quit (Enter p, s, or q): ").strip().lower()
+        if player_choice in ("p", "s", "q"):
+            return player_choice
+
+def game_stats()
+
+
 
 def computer_select() -> str:
     print("Computer making selection...")
@@ -68,18 +88,6 @@ def create_timestamp() -> str:
     timestamp = datetime.now().isoformat(timespec="milliseconds")
     return timestamp
 
-def create_game_dictionary(timestamp: str, player_selection: str, computer_selection: str) -> dict:
-    """Creates a dictionary with the three crucial pieces of data for the current game"""
-    return {
-        "timestamp": timestamp,
-        "player selection": player_selection,
-        "computer selection": computer_selection
-    }
-
-def append_game_dictioary(game_dictionary: dict, game_list: list) -> None:
-    """Adds the current game data to the list of games for a given user"""
-    game_list.append(game_dictionary)
-    
 def evaluate_winner(player_selection: str, computer_selection: str) -> str:
     """Returns the winner given a player selection and a computer selection"""
     if player_selection == computer_selection:
@@ -89,6 +97,20 @@ def evaluate_winner(player_selection: str, computer_selection: str) -> str:
             (player_selection == "scissors" and computer_selection == "paper")):
         return "player"
     return "computer"
+
+def create_game_dictionary(timestamp: str, player_selection: str, computer_selection: str, winner: str) -> dict:
+    """Creates a dictionary with the three crucial pieces of data for the current game"""
+    return {
+        "timestamp": timestamp,
+        "player selection": player_selection,
+        "computer selection": computer_selection,
+        "winner": winner
+    }
+
+def append_game_dictionary(game_dictionary: dict, game_list: list) -> None:
+    """Adds the current game data to the list of games for a given user"""
+    game_list.append(game_dictionary)
+    
 
 
 
