@@ -4,10 +4,10 @@ A simple command line Rock, Paper, Scissors game in Python with player profiles 
 
 ## Features
 
--Player profiles with usernames
--Game history saved locally with JSON
--View detailed game statistics (Wins, Losses, Ties, Throws)
--Timestamped game records
+- Player profiles with usernames
+- Game history saved locally with JSON
+- View detailed game statistics (Wins, Losses, Ties, Throws)
+- Timestamped game records
 
 ## Requirements
 
