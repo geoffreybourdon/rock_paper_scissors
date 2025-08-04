@@ -1,6 +1,6 @@
 # Rock, Paper, Scissors (RPS) Game
 
-A simple command line Rock, Paper, Scissors game in Python with player profiles and game statistics
+A simple command-line Rock, Paper, Scissors game in Python with player profiles and game statistics.
 
 ## Features
 
@@ -18,4 +18,4 @@ Python version 3.7 or higher
 
 1. Download or clone this repository.
 2. Open a terminal or command prompt in the project directory
-3. Run the game
+3. Run the game by executing the main Python file (e.g. python main.py)
