@@ -30,7 +30,7 @@ def set_username(existing_status: bool, data: dict) -> str:
         user_name = input("\nEnter your username: ").strip().title()
         if existing_status:
             if user_name in data.keys():
-                print(f"\nWelcom back {user_name}")
+                print(f"\nWelcome back {user_name}")
                 return user_name
             else:
                 print("\nYour username was not found." 
@@ -149,7 +149,7 @@ def create_game_dictionary(timestamp: str, player_choice: str, computer_choice: 
         "winner": winner
     }
 
-def save_data(data):
+def save_data(data: dict) -> None:
     """Save a copy of the game data"""
     with open("rps_data.json", "w") as f:
         json.dump(data, f, indent=4, sort_keys=True)
